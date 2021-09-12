@@ -1,37 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/teamname"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="22dp" >
+        android:layout_height="350dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        app:cardCornerRadius="30dp">
 
 
-    <LinearLayout
-        android:background="@color/purple_500"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/score_item"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:gravity="center"
-            android:text="text"
-            android:textColor="@color/white"
-            android:textSize="18dp"/>
+            android:layout_height="match_parent"
+            android:background="@color/grey">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/teamlogohome"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="8dp"
+                android:scaleType="fitXY" />
+
+
+            <ImageView
+                android:id="@+id/teamlogoaway"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitXY" />
+
+
+            <TextView
+                android:id="@+id/teamhomeName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/teamlogohome"
+                android:layout_alignEnd="@+id/teamlogohome"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/leaugetext_background"
+                android:fontFamily="@font/open_sans_extrabold"
+                android:gravity="center"
+                android:paddingLeft="4dp"
+                android:paddingEnd="4dp"
+                android:text="Team Home"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/teamawayName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/teamlogohome"
+                android:layout_alignStart="@+id/teamlogoaway"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/leaugetext_background"
+                android:fontFamily="@font/open_sans_extrabold"
+                android:gravity="center"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="Team Home"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/teamhomeName"
+                android:background="@color/purple_700">
+
+                <TextView
+                    android:id="@+id/scoreText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/open_sans_extrabold"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:text="Score"
+                    android:textColor="@color/white"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/scoreText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/open_sans_extrabold"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textColor="@color/white"
+                    android:textSize="28dp" />
+            </RelativeLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</RelativeLayout>

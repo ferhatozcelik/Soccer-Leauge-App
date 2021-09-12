@@ -26,11 +26,15 @@ public interface Service {
     //_sort=point&_order=desc
 
     String sortPoint = "point,average";
-    String orderdesc = "asc";
+    String sortDate = "date";
+    String order = "asc";
 
     @GET("leagues-points?")
     Call<List<PointModel>> getPointItem(@Query("points_league") String points_league, @Query("points_week") String points_week, @Query("_sort") String sort, @Query("_order") String order);
 
     @GET("fixtures?")
-    Call<List<FixturesModel>> getmAllFixtures(@Query("fixture_league") String fixture_league, @Query("fixture_week") String fixture_week);
+    Call<List<FixturesModel>> getmAllFixtures(@Query("fixture_league") String fixture_league, @Query("fixture_week") String fixture_week, @Query("_sort") String sort, @Query("_order") String order);
+
+    @GET("fixtures?")
+    Call<List<FixturesModel>> getmAllTeamFixtures(@Query("away") String fixture_league, @Query("_sort") String sort, @Query("_order") String order);
 }

@@ -1,26 +1,45 @@
 package com.ferhatozcelik.soccerleauge.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ferhatozcelik.soccerleauge.FixturesActivity;
+import com.ferhatozcelik.soccerleauge.FixturesModel;
+import com.ferhatozcelik.soccerleauge.FixturesViewModel;
 import com.ferhatozcelik.soccerleauge.R;
+import com.ferhatozcelik.soccerleauge.database.Fixtures;
 import com.ferhatozcelik.soccerleauge.database.Point;
+import com.ferhatozcelik.soccerleauge.network.DataServiceGenerator;
+import com.ferhatozcelik.soccerleauge.network.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ImageViewHolder> {
 
     private Context mContext;
     private List<Point> mPosts;
+
+    private FixturesViewModel fixtureViewModel;
+    private ArrayList<Fixtures> fixtureDbList;
+    private ViewPager viewPager;
 
     public PointAdapter(Context context, List<Point> posts){
         mContext = context;
@@ -47,7 +66,19 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ImageViewHol
         GetReadView(holder.pointitem_av,"AV:" + post.getAverage());
         GetReadView(holder.pointitem_p,"P:" + post.getPoint());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(mContext, FixturesActivity.class);
+                i.putExtra("fixturestype","teamfixture");
+                i.putExtra("teamName",post.getTeamname());
+                mContext.startActivity(i);
+
+            }
+        });
     }
+
 
     private void GetReadView(TextView textView,String text) {
             textView.setText(text);

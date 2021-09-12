@@ -4,14 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/titletext_background"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/selectleagueText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title2"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Select League"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/titletext_background"/>
+
+    <TextView
+        android:id="@+id/fixtureWeekText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectleagueText"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:text="0.Week"
+        android:background="@drawable/titletext_background"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp"
+        android:textSize="20sp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/fixtureWeekText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:foregroundGravity="center"
         android:overScrollMode="never">

@@ -1,5 +1,6 @@
 package com.ferhatozcelik.soccerleauge;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Leauge> dataAdapterForLeauge;
     private RecyclerView point_recyclerView;
 
-    private ArrayList<Integer> weekDbList;
-    private ArrayAdapter<Integer> dataAdapterForWeek;
     private int currentweek = 0;
-    private String currentleauge = null;
+    private String currentleauge = null,currentName = null;
     private PointAdapter pointAdapter;
     private Button fixtureButton;
     private Context context = MainActivity.this;
+
+    private ProgressDialog progressDialog;
+
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +79,20 @@ public class MainActivity extends AppCompatActivity {
         CreateWeekItem();
         ViewModelInit();
 
-        fixtureButton = findViewById(R.id.fixtureButton);
-        fixtureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(context,FixturesActivity.class);
-                i.putExtra("currentleauge",currentleauge);
-                i.putExtra("currentweek",currentweek);
-                startActivity(i);
-            }
-        });
-
-
-
     }
+
+    private void ProgressBorShow(String message) {
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+    private void ProgressBorHide() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
 
     private void CreateWeekItem() {
 
@@ -132,6 +134,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void ViewModelInit() {
+
+
+        fixtureButton = findViewById(R.id.fixtureButton);
+        fixtureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(context,FixturesActivity.class);
+                i.putExtra("fixturestype","globalfixture");
+                i.putExtra("currentleauge",currentleauge);
+                i.putExtra("currentleaugeName",currentName);
+                i.putExtra("currentweek",currentweek);
+                startActivity(i);
+            }
+        });
+
+
+
         leaugeDbList = new ArrayList<>();
         leaugeViewModel = ViewModelProviders.of(this).get(LeaugeViewModel.class);
         leaugeViewModel.getAllLeauge().observe(this, new Observer<List<Leauge>>() {
@@ -151,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchLeauge(){
+        ProgressBorShow("Leagues Loading...");
         DataServiceGenerator DataServiceGenerator = new DataServiceGenerator();
         Service service = DataServiceGenerator.createService(Service.class);
         Call<List<LeaugeModel>> call = service.getLeauge();
@@ -192,11 +213,13 @@ public class MainActivity extends AppCompatActivity {
         dataAdapterForLeauge = new ArrayAdapter<Leauge>(this, android.R.layout.simple_spinner_item, leaugeDbList);
         dataAdapterForLeauge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLeauge.setAdapter(dataAdapterForLeauge);
+        ProgressBorHide();
         spinnerLeauge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Leauge leaugeModel = (Leauge) parent.getSelectedItem();
                 currentleauge = leaugeModel.getKey();
+                currentName = leaugeModel.getLeague();
                 GetItem(currentleauge,currentweek);
             }
             @Override
@@ -207,9 +230,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void GetItem(String key, int i) {
 
+        ProgressBorShow("Teams Loading...");
         DataServiceGenerator DataServiceGenerator = new DataServiceGenerator();
         Service service = DataServiceGenerator.createService(Service.class);
-        Call<List<PointModel>> call = service.getPointItem(key, String.valueOf(i),Service.sortPoint,Service.orderdesc);
+        Call<List<PointModel>> call = service.getPointItem(key, String.valueOf(i),Service.sortPoint,Service.order);
         pointDbList.clear();
         call.enqueue(new Callback<List<PointModel>>() {
             @Override
@@ -254,20 +278,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void takeActionView() {
-        point_recyclerView = (RecyclerView)findViewById(R.id.point_recyclerView);
-        point_recyclerView.setHasFixedSize(true);
-        point_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         point_recyclerView = findViewById(R.id.point_recyclerView);
         point_recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-
-
-
         point_recyclerView.setLayoutManager(mLayoutManager);
         pointAdapter = new PointAdapter(this, pointDbList);
         point_recyclerView.setAdapter(pointAdapter);
+        ProgressBorHide();
         point_recyclerView.clearFocus();
         pointAdapter.notifyDataSetChanged();
 

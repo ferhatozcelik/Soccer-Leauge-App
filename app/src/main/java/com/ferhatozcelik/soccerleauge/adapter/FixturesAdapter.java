@@ -53,7 +53,6 @@ public class FixturesAdapter extends PagerAdapter {
         View view = LayoutInflater.from(mContext).inflate(R.layout.card_item,container,false);
         Fixtures fixturesModel = mPosts.get(position);
 
-
         TextView score = view.findViewById(R.id.scoreText);
         TextView teamhomeName = view.findViewById(R.id.teamhomeName);
         TextView teamawayName = view.findViewById(R.id.teamawayName);
@@ -68,7 +67,8 @@ public class FixturesAdapter extends PagerAdapter {
         teamawayName.setText(fixturesModel.getAway());
 
 
-         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
         Date date = null;
         try {
@@ -76,25 +76,18 @@ public class FixturesAdapter extends PagerAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy HH:mm");
         dateText.setText(dt1.format(date));
-
-
-        Glide.with(mContext).load(fixturesModel.getAwayLogo())
-                .apply(new RequestOptions().placeholder(R.drawable.card_background))
-                .into(teamlogoaway);
-
-        Glide.with(mContext).load(fixturesModel.getHomeLogo())
-                .apply(new RequestOptions().placeholder(R.drawable.card_background))
-                .into(teamlogohome);
-
-        container.addView(view,position);
+        Glide.with(mContext).load(fixturesModel.getAwayLogo()).into(teamlogoaway);
+        Glide.with(mContext).load(fixturesModel.getHomeLogo()).into(teamlogohome);
+        container.addView(view, position);
         return view;
     }
 
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 }

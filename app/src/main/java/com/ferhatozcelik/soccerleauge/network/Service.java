@@ -36,5 +36,5 @@ public interface Service {
     Call<List<FixturesModel>> getmAllFixtures(@Query("fixture_league") String fixture_league, @Query("fixture_week") String fixture_week, @Query("_sort") String sort, @Query("_order") String order);
 
     @GET("fixtures?")
-    Call<List<FixturesModel>> getmAllTeamFixtures(@Query("away") String fixture_league, @Query("_sort") String sort, @Query("_order") String order);
+    Call<List<FixturesModel>> getmAllTeamFixtures(@Query("q") String fixture_league, @Query("_sort") String sort, @Query("_order") String order);
 }

@@ -72,6 +72,8 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ImageViewHol
 
                 Intent i = new Intent(mContext, FixturesActivity.class);
                 i.putExtra("fixturestype","teamfixture");
+                i.putExtra("currentleaugeName",post.getLeague());
+                i.putExtra("currentweek",Integer.valueOf(post.getWeek()));
                 i.putExtra("teamName",post.getTeamname());
                 mContext.startActivity(i);
 

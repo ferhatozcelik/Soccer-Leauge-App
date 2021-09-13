@@ -1,5 +1,6 @@
 package com.ferhatozcelik.soccerleauge;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ferhatozcelik.soccerleauge.adapter.FixturesAdapter;
 import com.ferhatozcelik.soccerleauge.adapter.PointAdapter;
 import com.ferhatozcelik.soccerleauge.database.Fixtures;
@@ -33,32 +35,26 @@ public class FixturesActivity extends AppCompatActivity {
 
     private List<Fixtures> fixtureList;
     private FixturesViewModel fixtureViewModel;
-    private ArrayList<Fixtures> fixtureDbList;
+    ArrayList<Fixtures> fixtureDbList;
+    private ArrayList<Fixtures> teamfixtureDbList;
 
     private ViewPager viewPager;
 
-    private FixturesAdapter fixturesAdapter;
+    FixturesAdapter fixturesAdapter;
 
     private ProgressDialog progressDialog;
+    String currentteamName,currentleauge,currentleaugeName;
+    int currentweek;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fixtures);
 
-
-        String type = getIntent().getExtras().getString("fixturestype");
-        if (type.equals("teamfixture")){
-            TeamFixtureInit();
-        }else if (type.equals("globalfixture")){
-            GlobalFixtureInit();
-        }
+        TextView textViewWeek = findViewById(R.id.fixtureWeekText);
+        TextView selectleagueText = findViewById(R.id.selectleagueText);
 
 
-
-
-    }
-
-    private void GlobalFixtureInit() {
 
         fixtureDbList = new ArrayList<>();
         fixtureViewModel = ViewModelProviders.of(this).get(FixturesViewModel.class);
@@ -68,31 +64,34 @@ public class FixturesActivity extends AppCompatActivity {
                 fixtureList = fixtures;
             }
         });
-        GetGlobalFixtureItem();
-    }
 
-    private void TeamFixtureInit() {
+        currentteamName = getIntent().getExtras().getString("teamName");
+        currentleauge = getIntent().getExtras().getString("currentleauge");
+        currentleaugeName = getIntent().getExtras().getString("currentleaugeName");
+        currentweek = getIntent().getExtras().getInt("currentweek");
+
+        textViewWeek.setText(currentweek + ".Week");
+
+        String type = getIntent().getExtras().getString("fixturestype");
+        if (type.equals("teamfixture")){
+
+            String[] ligsplit = currentleaugeName.split("-");
 
 
-        GetTeamFixtureItem();
+            selectleagueText.setText(ligsplit[0].substring(0, 1).toUpperCase() + ligsplit[0].substring(1) + " " +  ligsplit[1].substring(0, 1).toUpperCase() +  ligsplit[1].substring(1));
+
+
+            GetTeamFixtureItem();
+        }else if (type.equals("globalfixture")){
+            selectleagueText.setText(currentleaugeName);
+            GetGlobalFixtureItem();
+        }
 
     }
 
     private void GetTeamFixtureItem() {
 
-        String currentteamName = getIntent().getExtras().getString("teamName");
-        String currentleauge = getIntent().getExtras().getString("currentleauge");
-        String currentleaugeName = getIntent().getExtras().getString("currentleaugeName");
-        int currentweek = getIntent().getExtras().getInt("currentweek");
-
         ProgressDialogShow("Team Fixtures Loading...");
-        TextView textViewWeek = findViewById(R.id.fixtureWeekText);
-        TextView selectleagueText = findViewById(R.id.selectleagueText);
-        textViewWeek.setText(currentweek + ".Week");
-        selectleagueText.setText(currentleaugeName);
-
-        Log.d("Test",currentteamName);
-
         DataServiceGenerator DataServiceGenerator = new DataServiceGenerator();
         Service service = DataServiceGenerator.createService(Service.class);
         Call<List<FixturesModel>> call = service.getmAllTeamFixtures(currentteamName,Service.sortDate,Service.order);
@@ -113,7 +112,7 @@ public class FixturesActivity extends AppCompatActivity {
                             String away = fixtureModelList.get(i).getAway();
                             String home = fixtureModelList.get(i).getHome();
 
-                            Log.d("score:",home+away);
+
                             Fixtures fixturesModel = new Fixtures(week,league,score,date,awayLogo,homeLogo,away,home);
                             fixtureViewModel.insert(fixturesModel);
                             fixtureDbList.add(fixturesModel);
@@ -140,15 +139,7 @@ public class FixturesActivity extends AppCompatActivity {
 
 
     private void GetGlobalFixtureItem() {
-        String currentleauge = getIntent().getExtras().getString("currentleauge");
-        String currentleaugeName = getIntent().getExtras().getString("currentleaugeName");
-        int currentweek = getIntent().getExtras().getInt("currentweek");
         ProgressDialogShow("Fixtures Loading...");
-        TextView textViewWeek = findViewById(R.id.fixtureWeekText);
-        TextView selectleagueText = findViewById(R.id.selectleagueText);
-        textViewWeek.setText(currentweek + ".Week");
-        selectleagueText.setText(currentleaugeName);
-
         DataServiceGenerator DataServiceGenerator = new DataServiceGenerator();
         Service service = DataServiceGenerator.createService(Service.class);
         Call<List<FixturesModel>> call = service.getmAllFixtures(currentleauge, String.valueOf(currentweek),Service.sortDate,Service.order);
@@ -169,7 +160,6 @@ public class FixturesActivity extends AppCompatActivity {
                             String away = fixtureModelList.get(i).getAway();
                             String home = fixtureModelList.get(i).getHome();
 
-                            Log.d("score:",score);
                             Fixtures fixturesModel = new Fixtures(week,league,score,date,awayLogo,homeLogo,away,home);
                             fixtureViewModel.insert(fixturesModel);
                             fixtureDbList.add(fixturesModel);
@@ -194,25 +184,29 @@ public class FixturesActivity extends AppCompatActivity {
 
     }
     private void takeActionView() {
+
+
         viewPager = findViewById(R.id.viewPager);
         fixturesAdapter = new FixturesAdapter(this, fixtureDbList);
         viewPager.setAdapter(fixturesAdapter);
         viewPager.setPadding(100,0,100,0);
+        fixturesAdapter.notifyDataSetChanged();
+
+
+        Log.d("TestER",fixturesAdapter.getCount() + "");
+        Log.d("TestER",fixtureDbList.size() + "");
+
         ProgressDialogHide();
-
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
-
+                Log.d("TestER",i + "");
             }
-
             @Override
             public void onPageSelected(int i) {
 
             }
-
             @Override
             public void onPageScrollStateChanged(int i) {
 

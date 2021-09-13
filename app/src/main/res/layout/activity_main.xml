@@ -99,14 +99,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/weekText"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="12dp"
-        android:layout_marginLeft="12dp"
-        android:fontFamily="@font/open_sans_extrabold"
         android:background="@drawable/spinner_background"
-        android:textSize="18sp"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:text="Global Draw Fixture"
         android:textColor="@color/purple_700"
-        android:text="Draw Fixture" />
+        android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/point_recyclerView"

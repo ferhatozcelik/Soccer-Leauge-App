@@ -79,8 +79,10 @@ public class FixturesAdapter extends PagerAdapter {
 
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy HH:mm");
         dateText.setText(dt1.format(date));
+
         Glide.with(mContext).load(fixturesModel.getAwayLogo()).into(teamlogoaway);
         Glide.with(mContext).load(fixturesModel.getHomeLogo()).into(teamlogohome);
+
         container.addView(view, position);
         return view;
     }

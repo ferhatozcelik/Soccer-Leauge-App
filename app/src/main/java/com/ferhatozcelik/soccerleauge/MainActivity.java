@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         nextWeek = findViewById(R.id.nextWeek);
         backWeek = findViewById(R.id.backWeek);
 
-        currentweek = 0;
+        currentweek = 1;
 
 
             nextWeek.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if(currentweek > 0){
+                    if(currentweek > 1){
                         currentweek -= 1;
                         WeekUpdate();
                     }
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void WeekUpdate() {
         weekText.setText(currentweek + ".Week");
+        fixtureButton.setText(currentweek + ".WEEK DRAW FIXTURE");
         GetItem(currentleauge,currentweek);
 
     }

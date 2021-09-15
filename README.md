@@ -21,7 +21,7 @@ APK File:
 https://github.com/ferhatozcelik/SoccerLeaugeApp/raw/master/ReleaseOutFile/release/soccer-leauge-release.apk
 
 Screenshot: 
-
+https://github.com/ferhatozcelik/SoccerLeaugeApp/tree/master/Screenshot
 
 --------------------------------------------
 Backend
@@ -35,5 +35,8 @@ League Table/Lİg Tablosu
 https://soccerleaugeapi.herokuapp.com/leagues-points
 matches/Maçlar
 https://soccerleaugeapi.herokuapp.com/fixtures
+
+https://github.com/ferhatozcelik/SoccerLeaugeApp/blob/master/Screenshot/Screenshot_3.jpg
+
 
 by Ferhat ÖZÇELİK|ferhatozcelik.com

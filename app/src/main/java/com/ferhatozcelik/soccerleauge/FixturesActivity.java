@@ -44,6 +44,7 @@ public class FixturesActivity extends AppCompatActivity {
 
     FixturesAdapter fixturesAdapter;
 
+
     private ProgressDialog progressDialog;
     String currentteamName,currentleauge,currentleaugeName;
     int currentweek;

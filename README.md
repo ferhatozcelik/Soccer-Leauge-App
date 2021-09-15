@@ -1,8 +1,10 @@
 # SoccerLeaugeApp
 Soccer Leauge App | Ferhat ÖZÇELİK
 
+
+
 TR
-Anasayfa'da Lig seçimi ve hafta seçimine göre takımlar listenir. Sıralamsı puan ve averaj göre sıralanır. 
+Anasayfa'da Lig seçimi ve hafta seçimine göre takımlar listenir. Sıralaması puan ve averaj göre sıralanır. 
 Takımlara tıklanırsa takımın tüm maçlarını görebiliriz.
 Takım maçları tarihlerine göre sıralanır bir sonraki maç için sağa doğru kaydırarak inceleyebiliriz.
 Seçilen Takımın Tüm maçlarını görmek için "Global Draw Fixture" button tıklayarak görebiliriz.
@@ -16,7 +18,7 @@ We can see all the matches of the selected Team by clicking the "Global Draw Fix
 It can be changed with the arrow buttons under the league to see the next week.
 ------------------------------------------------
 APK File: 
-
+https://github.com/ferhatozcelik/SoccerLeaugeApp/raw/master/ReleaseOutFile/release/soccer-leauge-release.apk
 
 Screenshot: 
 

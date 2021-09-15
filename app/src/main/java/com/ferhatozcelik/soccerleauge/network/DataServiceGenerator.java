@@ -16,7 +16,7 @@ public class DataServiceGenerator {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://soccerleaugeapi.herokuapp.com/");
-        //http://10.0.2.2:3000
+                //http://10.0.2.2:3000
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                 .readTimeout(90, TimeUnit.SECONDS)

@@ -44,7 +44,9 @@ import okhttp3.internal.http2.PushObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * Created by Ferhat OZCELIK
+ */
 public class MainActivity extends AppCompatActivity {
     private List<Leauge> leaugeList;
     private List<Point> pointList;

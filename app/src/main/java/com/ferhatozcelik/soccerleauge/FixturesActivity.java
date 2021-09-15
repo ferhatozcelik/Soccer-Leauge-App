@@ -30,7 +30,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * Created by Ferhat OZCELIK
+ */
 public class FixturesActivity extends AppCompatActivity {
 
     private List<Fixtures> fixtureList;

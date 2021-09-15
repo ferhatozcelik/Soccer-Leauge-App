@@ -36,6 +36,6 @@ https://soccerleaugeapi.herokuapp.com/leagues-points
 matches/Maçlar
 https://soccerleaugeapi.herokuapp.com/fixtures
 
-![](https://github.com/ferhatozcelik/SoccerLeaugeApp/blob/master/Screenshot/Screenshot_3.jpg | width=50)
+![](https://github.com/ferhatozcelik/SoccerLeaugeApp/blob/master/Screenshot/Screenshot_3.jpg width="200" height="400")
 
 by Ferhat ÖZÇELİK|ferhatozcelik.com

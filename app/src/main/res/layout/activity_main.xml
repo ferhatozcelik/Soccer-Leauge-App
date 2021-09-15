@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="?attr/background_color"
     tools:context=".MainActivity">
 
 
@@ -17,7 +19,7 @@
         android:textSize="24sp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:textColor="@color/white"
+        android:textColor="?attr/text_color"
         android:background="@drawable/titletext_background"
         android:fontFamily="@font/open_sans_extrabold"/>
 
@@ -26,17 +28,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:background="@drawable/leaugetext_background"
         android:text="LEAUGE"
-        android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textColor="?attr/text_color"
         android:fontFamily="@font/open_sans_extrabold" />
 
+
+    <Button
+        android:id="@+id/darkMode"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/title"
+        android:layout_alignEnd="@+id/spinner"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/leaugetext_background"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Dark Mode"
+        android:textColor="?attr/text_color"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/weekText"
@@ -51,7 +69,7 @@
         android:fontFamily="@font/open_sans_extrabold"
         android:gravity="center"
         android:text="1.Week"
-        android:textColor="@color/purple_700"
+        android:textColor="@color/red_900"
         android:textSize="16sp" />
 
     <ImageButton
@@ -81,7 +99,7 @@
         android:fontFamily="@font/open_sans_semibold"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_keyboard_double_arrow_right_white_24dp"
-        android:textColor="@color/white"
+        android:textColor="?attr/text_color"
         android:textSize="18sp" />
 
     <Spinner
@@ -105,7 +123,7 @@
         android:background="@drawable/spinner_background"
         android:fontFamily="@font/open_sans_extrabold"
         android:text="1.WEEK Global Draw Fixture"
-        android:textColor="@color/purple_700"
+        android:textColor="?attr/text_color"
         android:textSize="14sp" />
 
     <android.support.v7.widget.RecyclerView

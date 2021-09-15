@@ -13,13 +13,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:largeHeap="true"
-        android:theme="@style/Theme.Asafgasfa.NoActionBar"
+        android:theme="@style/LightTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
             android:name=".FixturesActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Asafgasfa.NoActionBar" />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

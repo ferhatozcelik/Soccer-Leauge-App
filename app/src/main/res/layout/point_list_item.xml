@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
         android:text="Team Name"
-        android:textColor="@color/black"
+        android:textColor="?attr/text_color"
         android:textSize="14sp"
         android:layout_margin="8dp"
         android:fontFamily="@font/open_sans_extrabold"/>
@@ -32,7 +32,7 @@
         android:layout_marginTop="2dp"
         android:fontFamily="@font/open_sans_extrabold"
         android:text="O: 0"
-        android:textColor="@color/black"
+        android:textColor="?attr/text_color"
         android:textSize="14sp" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_toEndOf="@+id/pointitem_o"
         android:fontFamily="@font/open_sans_extrabold"
         android:text="G: 0"
-        android:textColor="@color/black"
+        android:textColor="?attr/text_color"
         android:textSize="14sp" />
 
     <TextView
@@ -58,7 +58,7 @@
         android:layout_toEndOf="@+id/pointitem_g"
         android:fontFamily="@font/open_sans_extrabold"
         android:text="B: 0"
-        android:textColor="@color/black"
+        android:textColor="?attr/text_color"
         android:textSize="14sp" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_toEndOf="@+id/pointitem_b"
         android:fontFamily="@font/open_sans_extrabold"
         android:text="M: 0"
-        android:textColor="@color/black"
+        android:textColor="?attr/text_color"
         android:textSize="14sp" />
 
     <TextView
@@ -86,7 +86,7 @@
         android:fontFamily="@font/open_sans_extrabold"
         android:gravity="center"
         android:text="P: 0"
-        android:textColor="@color/red_900"
+        android:textColor="?attr/text_color"
         android:textSize="24sp" />
 
     <TextView
@@ -101,7 +101,7 @@
         android:fontFamily="@font/open_sans_extrabold"
         android:gravity="center"
         android:text="AV: 0"
-        android:textColor="@color/purple_700"
+        android:textColor="?attr/text_color"
         android:textSize="16sp" />
 
 

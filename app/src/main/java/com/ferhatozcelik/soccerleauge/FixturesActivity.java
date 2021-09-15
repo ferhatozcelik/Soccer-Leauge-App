@@ -4,12 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,21 +48,26 @@ public class FixturesActivity extends AppCompatActivity {
 
     FixturesAdapter fixturesAdapter;
 
-
-
     private ProgressDialog progressDialog;
     String currentteamName,currentleauge,currentleaugeName;
     int currentweek;
+    private int theme = 0;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        theme = sharedPref.getInt("theme",0);
+        if (theme == 0){
+            setTheme(R.style.LightTheme);
+        }else{
+            setTheme(R.style.DarkTheme);
+        }
         setContentView(R.layout.activity_fixtures);
 
         TextView textViewWeek = findViewById(R.id.fixtureWeekText);
         TextView selectleagueText = findViewById(R.id.selectleagueText);
-
-
 
         fixtureDbList = new ArrayList<>();
         fixtureViewModel = ViewModelProviders.of(this).get(FixturesViewModel.class);
@@ -196,16 +205,11 @@ public class FixturesActivity extends AppCompatActivity {
         viewPager.setPadding(100,0,100,0);
         fixturesAdapter.notifyDataSetChanged();
 
-
-        Log.d("TestER",fixturesAdapter.getCount() + "");
-        Log.d("TestER",fixtureDbList.size() + "");
-
         ProgressDialogHide();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
-                Log.d("TestER",i + "");
             }
             @Override
             public void onPageSelected(int i) {

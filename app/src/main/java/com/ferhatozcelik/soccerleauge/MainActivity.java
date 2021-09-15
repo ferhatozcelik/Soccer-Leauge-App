@@ -7,11 +7,14 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 
 import com.ferhatozcelik.soccerleauge.adapter.PointAdapter;
@@ -74,17 +78,58 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private int animasyontype = 1;
-
+    private Button darkMode;
+    SharedPreferences sharedPref;
+    private int theme = 0;
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        theme = sharedPref.getInt("theme",0);
+        if (theme == 0){
+            setTheme(R.style.LightTheme);
+        }else{
+            setTheme(R.style.DarkTheme);
+        }
 		setContentView(R.layout.activity_main);
 
+        Log.d("Test",theme +"");
 
         point_recyclerView = findViewById(R.id.point_recyclerView);
         fetchLeauge();
         CreateWeekItem();
         ViewModelInit();
+
+
+        darkMode = findViewById(R.id.darkMode);
+        if (theme == 0){
+            darkMode.setText("Dark Mode");
+        }else{
+            darkMode.setText("Light Mode");
+        }
+
+        darkMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                if (theme == 0){
+                    theme = 1;
+                    editor.putInt("theme",theme);
+                    editor.apply();
+                }else if(theme == 1) {
+                    theme = 0;
+                    editor.putInt("theme",theme);
+                    editor.apply();
+                }
+
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+
+            }
+        });
 
     }
 
@@ -151,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void WeekUpdate() {
         weekText.setText(currentweek + ".Week");
-        fixtureButton.setText(currentweek + ".WEEK DRAW FIXTURE");
+        fixtureButton.setText(currentweek + ".WEEK GLOBAL DRAW FIXTURE");
         GetItem(currentleauge,currentweek);
 
     }
@@ -233,8 +278,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void SpinnerInit() {
         spinnerLeauge = findViewById(R.id.spinner);
-        dataAdapterForLeauge = new ArrayAdapter<Leauge>(this, android.R.layout.simple_spinner_item, leaugeDbList);
-        dataAdapterForLeauge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapterForLeauge = new ArrayAdapter<Leauge>(this, R.layout.spinner_item,R.id.sp_item, leaugeDbList);
+        dataAdapterForLeauge.setDropDownViewResource(R.layout.spinner_item);
         spinnerLeauge.setAdapter(dataAdapterForLeauge);
         ProgressBorHide();
         spinnerLeauge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

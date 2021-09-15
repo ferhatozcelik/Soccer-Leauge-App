@@ -93,13 +93,10 @@ public class MainActivity extends AppCompatActivity {
         }
 		setContentView(R.layout.activity_main);
 
-        Log.d("Test",theme +"");
-
         point_recyclerView = findViewById(R.id.point_recyclerView);
         fetchLeauge();
         CreateWeekItem();
         ViewModelInit();
-
 
         darkMode = findViewById(R.id.darkMode);
         if (theme == 0){

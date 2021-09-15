@@ -187,7 +187,7 @@ public class FixturesActivity extends AppCompatActivity {
 
 
         viewPager = findViewById(R.id.viewPager);
-        fixturesAdapter = new FixturesAdapter(this, fixtureDbList);
+        fixturesAdapter = new FixturesAdapter(FixturesActivity.this, fixtureDbList);
         viewPager.setAdapter(fixturesAdapter);
         viewPager.setPadding(100,0,100,0);
         fixturesAdapter.notifyDataSetChanged();

@@ -16,6 +16,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,12 +71,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    private int animasyontype = 1;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+
+        point_recyclerView = findViewById(R.id.point_recyclerView);
         fetchLeauge();
         CreateWeekItem();
         ViewModelInit();
@@ -90,7 +95,20 @@ public class MainActivity extends AppCompatActivity {
     private void ProgressBorHide() {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
+            AnimasyonStart();
         }
+    }
+
+    private void AnimasyonStart() {
+
+        if (animasyontype == 1){
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
+            point_recyclerView.startAnimation(animation);
+        }else   if (animasyontype == 2){
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_int_right);
+            point_recyclerView.startAnimation(animation);
+        }
+
     }
 
 
@@ -108,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     if(currentweek < 38){
+                        animasyontype = 1;
                         currentweek += 1;
                         WeekUpdate();
                     }
@@ -118,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     if(currentweek > 1){
+                        animasyontype = 2;
                         currentweek -= 1;
                         WeekUpdate();
                     }
@@ -280,8 +300,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void takeActionView() {
 
-
-        point_recyclerView = findViewById(R.id.point_recyclerView);
         point_recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
